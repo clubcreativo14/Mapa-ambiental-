@@ -13,6 +13,7 @@
   --display:'Fredoka',system-ui,sans-serif;--body:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html,body{height:100%;margin:0;font-family:var(--body);color:var(--ink);background:var(--paper)}
 #map{position:absolute;inset:0}
 .topbar{position:absolute;z-index:1000;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top,0px) + 10px) 12px 8px;pointer-events:none}
@@ -64,7 +65,7 @@ textarea{min-height:70px;resize:vertical}
 .row>*{flex:1 1 140px;justify-content:center}
 .toast{position:absolute;z-index:1200;left:50%;top:calc(env(safe-area-inset-top,0px) + 100px);transform:translateX(-50%);background:var(--ink);color:#fff;font:600 14px var(--body);padding:9px 16px;border-radius:999px;max-width:90%;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s}
 .toast.show{opacity:1}
-.menu{position:absolute;z-index:1150;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 170px);background:var(--paper);border:3px solid var(--ink);border-radius:16px;box-shadow:0 3px 0 var(--ink);padding:8px;display:grid;gap:4px;min-width:220px}
+.menu{position:absolute;z-index:1150;right:74px;bottom:calc(env(safe-area-inset-bottom,0px) + 110px);max-width:calc(100% - 90px);background:var(--paper);border:3px solid var(--ink);border-radius:16px;box-shadow:0 3px 0 var(--ink);padding:8px;display:grid;gap:4px;min-width:220px}
 .menu button{font:600 15px var(--body);text-align:left;background:none;border:0;padding:10px;border-radius:10px;cursor:pointer;color:var(--ink)}
 .menu button:hover{background:var(--soft)}
 .leaflet-container{font-family:var(--body)}
@@ -100,6 +101,7 @@ textarea{min-height:70px;resize:vertical}
   <button id="mCsv">Exportar planilla (CSV)</button>
   <button id="mJson">Exportar copia completa (JSON)</button>
   <button id="mImport">Importar copia (JSON)</button>
+  <button id="mClose" style="text-align:center;border-top:2px solid var(--soft)">Cerrar</button>
 </div>
 
 <div class="dock">
@@ -289,6 +291,7 @@ $('fabSat').onclick=function(){
   if(on){map.removeLayer(street);sat.addTo(map)}else{map.removeLayer(sat);street.addTo(map)}
 };
 $('fabMenu').onclick=function(){menu.hidden=!menu.hidden};
+$('mClose').onclick=function(){menu.hidden=true};
 $('mSetSchool').onclick=function(){menu.hidden=true;settingSchool=true;toast('Tocá en el mapa donde queda la Escuela 66')};
 $('mSchoolHere').onclick=async function(){
   menu.hidden=true;var p=await whereAmI();if(!p){toast('No pude obtener tu ubicación');return}
